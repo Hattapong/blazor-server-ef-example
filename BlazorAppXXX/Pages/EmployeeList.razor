@@ -1,0 +1,45 @@
+﻿@page "/emp"
+
+<PageTitle>Employees List</PageTitle>
+
+@using BlazorAppXXX.Data
+@using BlazorAppXXX.Entities
+@inject EmployeeService employeeService
+
+<h1>Employees</h1>
+
+<p></p>
+
+@if (employees == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var employee in employees)
+            {
+                <tr>
+                    <td>@employee.Id</td>
+                    <td>@employee.Name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Employee> employees;
+
+    protected override async Task OnInitializedAsync()
+    {
+        employees = await employeeService.GetEmployees();
+    }
+}
