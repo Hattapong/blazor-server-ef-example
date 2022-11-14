@@ -14,6 +14,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 
+
+// inject database context class
 builder.Services.AddDbContextFactory<MyContext>(opt => opt.UseSqlite("Data Source=demoDB"));
 
 builder.Services.AddSingleton<WeatherForecastService>();
@@ -25,6 +27,8 @@ var app = builder.Build();
 using var scope = app.Services.CreateScope();
 var context = scope.ServiceProvider.GetRequiredService<MyContext>();
 
+
+// db seed
 try
 {
     context.Database.Migrate();
@@ -48,10 +52,10 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+    //app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 

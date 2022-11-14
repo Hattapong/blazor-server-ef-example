@@ -13,6 +13,7 @@ namespace BlazorAppXXX.Data
         private readonly MyContext _context;
         public EmployeeService(IDbContextFactory<MyContext> contextFactory)
         {
+            // initial database context
             _context = contextFactory.CreateDbContext();
         }
 
